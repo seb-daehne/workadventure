@@ -5,11 +5,11 @@ RUN yarn install && yarn proto
 
 FROM thecodingmachine/nodejs:12
 
-COPY --chown=docker:docker back .
+COPY --chown=docker:docker . .
 COPY --from=builder --chown=docker:docker /var/www/messages/generated /usr/src/app/src/Messages/generated
 RUN yarn install
 
-ENV NODE_ENV=production
+#ENV NODE_ENV=production
 
 CMD ["yarn", "run", "prod"]
 
