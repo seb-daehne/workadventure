@@ -5,8 +5,8 @@ import {UserInputManager} from "../Phaser/UserInput/UserInputManager";
 declare const navigator:any; // eslint-disable-line @typescript-eslint/no-explicit-any
 
 const videoConstraint: boolean|MediaTrackConstraints = {
-    width: { ideal: 1280 },
-    height: { ideal: 720 },
+    width: { ideal: 640 },
+    height: { ideal: 360 },
     facingMode: "user"
 };
 

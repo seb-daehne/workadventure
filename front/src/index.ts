@@ -13,6 +13,7 @@ import {CustomizeScene} from "./Phaser/Login/CustomizeScene";
 import {ResizableScene} from "./Phaser/Login/ResizableScene";
 import {EntryScene} from "./Phaser/Login/EntryScene";
 import {coWebsiteManager} from "./WebRtc/CoWebsiteManager";
+import {coWindowManager} from "./WebRtc/CoWindowManager";
 
 // Load Jitsi if the environment variable is set.
 if (JITSI_URL) {

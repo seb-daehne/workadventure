@@ -44,6 +44,7 @@ import GameObject = Phaser.GameObjects.GameObject;
 import FILE_LOAD_ERROR = Phaser.Loader.Events.FILE_LOAD_ERROR;
 import {GameMap} from "./GameMap";
 import {coWebsiteManager} from "../../WebRtc/CoWebsiteManager";
+import {coWindowManager} from "../../WebRtc/CoWindowManager";
 import {mediaManager} from "../../WebRtc/MediaManager";
 import {FourOFourSceneName} from "../Reconnecting/FourOFourScene";
 import {ItemFactoryInterface} from "../Items/ItemFactoryInterface";
@@ -571,13 +572,25 @@ export class GameScene extends ResizableScene implements CenterListener {
         });
     }
 
-    private triggerOnMapLayerPropertyChange(){
+    private triggerOnMapLayerPropertyChange() {
+        console.log("triggerOnMapLayerPropertyChange");
+
         this.gameMap.onPropertyChange('exitSceneUrl', (newValue, oldValue) => {
             if (newValue) this.onMapExit(newValue as string);
         });
         this.gameMap.onPropertyChange('exitUrl', (newValue, oldValue) => {
             if (newValue) this.onMapExit(newValue as string);
         });
+
+        this.gameMap.onPropertyChange('openWindow', (newValue, oldValue) => {
+            console.log("openWindow(" + newValue as string + ", " + oldValue as string + ";");
+            if (newValue) {
+                coWindowManager.loadCoWindow(newValue as string);
+            } else {
+                coWindowManager.closeCoWindow();
+            }
+        });
+
         this.gameMap.onPropertyChange('openWebsite', (newValue, oldValue, allProps) => {
             if (newValue === undefined) {
                 layoutManager.removeActionButton('openWebsite', this.userInputManager);
@@ -598,6 +611,7 @@ export class GameScene extends ResizableScene implements CenterListener {
                 }
             }
         });
+
         this.gameMap.onPropertyChange('jitsiRoom', (newValue, oldValue, allProps) => {
             if (newValue === undefined) {
                 layoutManager.removeActionButton('jitsiRoom', this.userInputManager);
