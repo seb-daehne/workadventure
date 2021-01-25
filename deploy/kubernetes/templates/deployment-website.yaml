@@ -1,0 +1,20 @@
+---
+apiVersion: apps/v1 
+kind: Deployment
+metadata:
+  name: {{ .Chart.Name }}-website
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Chart.Name }}-website
+  template:
+    metadata:
+      labels:
+        app: {{ .Chart.Name }}-website
+    spec:
+      volumes:
+      containers:
+      - name: workadventure
+        image: {{ .Values.image_website }}
+        imagePullPolicy: IfNotPresent

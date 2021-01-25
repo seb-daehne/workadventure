@@ -1,0 +1,30 @@
+apiVersion: skaffold/v2beta9
+kind: Config 
+metadata:
+  name: workadventure 
+build: 
+  local:
+    push: false
+    useDockerCLI: false
+    useBuildkit: false
+  artifacts:
+  - image: registry/workadventure-back
+    context: back
+  - image: your.registry/workadventure-front
+    context: front
+  - image: your.registry/workadventure-maps
+    context: maps
+  - image: your.registry/workadventure-website
+    context: website
+
+deploy:
+  helm:
+    releases:
+      - name: workadventure
+        chartPath: deploy/kubernetes
+        artifactOverrides:
+          image_back: your.registry/workadventure-back
+          image_front: your.registry/workadventure-front
+          image_maps: your.registry/workadventure-maps
+          image_website: your.registry/workadventure-website
+

@@ -1,0 +1,44 @@
+apiVersion: apps/v1 
+kind: Deployment
+metadata:
+  name: {{ .Chart.Name }}-back
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Chart.Name }}-back
+  template:
+    metadata:
+      labels:
+        app: {{ .Chart.Name }}-back
+    spec:
+      containers:
+      - name: {{ .Chart.Name }}
+        image: {{ .Values.image_back }}
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: web
+          containerPort: 8080
+          protocol: TCP
+        env:
+        - name: SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Chart.Name }}
+              key: secret_key
+        - name: SECRET_JITSI_KEY
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Chart.Name }}
+              key: secret_jitsi_key
+        - name: ALLOW_ARTILLERY
+          value: {{ .Values.allow_artillery | quote}}
+        - name: ADMIN_API_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Chart.Name }}
+              key: admin_api_token
+        - name: JITSI_URL
+          value: {{ .Values.jitsi_url | quote }}
+        - name: JITSI_ISS
+          value: {{ .Values.jitsi_iss | quote }}

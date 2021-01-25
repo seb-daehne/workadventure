@@ -1,0 +1,26 @@
+---
+apiVersion: apps/v1 
+kind: Deployment
+metadata:
+  name: {{ .Chart.Name }}-maps
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Chart.Name }}-maps
+  template:
+    metadata:
+      labels:
+        app: {{ .Chart.Name }}-maps
+    spec:
+      volumes:
+      containers:
+      - name: workadventure
+        image:  {{ .Values.image_maps }}
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: DEBUG_MODE
+          value: {{ .Values.debug_mode | quote }}
+        - name: HOST
+          value: "0.0.0.0"
+     

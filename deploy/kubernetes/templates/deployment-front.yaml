@@ -1,0 +1,50 @@
+---
+apiVersion: apps/v1 
+kind: Deployment
+metadata:
+  name: {{ .Chart.Name }}-front
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Chart.Name }}-front
+  template:
+    metadata:
+      labels:
+        app: {{ .Chart.Name }}-front
+    spec:
+      containers:
+      - name: workadventure
+        image: {{ .Values.image_front }}
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: web 
+          containerPort: 80
+          protocol: TCP
+        env:
+        - name: NODE_ENV
+          value: production
+        - name: DEBUG_MODE
+          value: {{ .Values.debug_mode | quote }}
+        - name: JITSI_URL
+          value: {{ .Values.jitsi_url | quote }}
+        - name: JITSI_PRIVATE_MODE
+          value: {{ .Values.jitsi_private_mode | quote }}
+        - name: HOST
+          value: "0.0.0.0"
+        - name: API_URL
+          value: {{ .Values.api_url }}
+        - name: ADMIN_URL
+          value: {{ .Values.admin_url }}
+        {{ if .Values.turnserver }}
+        - name: TURN_SERVER
+          value: {{ .Values.turn_server }}
+        {{ end }}
+        {{ if .Values.turn_user }}
+        - name: TURN_USER
+          value: {{ .Values.turn_user }}
+        {{ end }}
+        {{ if .Values.turn_password }}
+        - name: TURN_PASSWORD
+          value: {{ .Values.turn_password }}
+        {{ end }}

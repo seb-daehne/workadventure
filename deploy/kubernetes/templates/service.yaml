@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Chart.Name }}-front
+spec:
+  selector:
+    app: {{ .Chart.Name }}-front
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Chart.Name }}-maps
+spec:
+  selector:
+    app: {{ .Chart.Name }}-maps
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Chart.Name }}-back
+spec:
+  selector:
+    app: {{ .Chart.Name }}-back
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Chart.Name }}-website
+spec:
+  selector:
+    app: {{ .Chart.Name }}-website
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80

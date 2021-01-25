@@ -1,0 +1,37 @@
+image: thecodingmachine/nodejs
+sha: thecodingmachine/nodejs@sha256:3b6f508c60500ceb9b228a3f67be23ba8d3a825acb441c4fa8af730849b52e4c
+update_version: false
+version: '12'
+
+debug_mode: false
+jitsi_url: meet.yourdomain.org
+jitsi_iss: meet.yourdomain.org
+jitsi_private_mode: false
+
+allow_artillery: true
+
+api_url: api.workadventure.yourdomain.org
+admin_url: admin.workadventure.yourdomain.org
+
+image_back: registry.yourdomain.org/workadventure-back
+image_front: registry.yourdomain.org/workadventure-front
+image_maps: registry.yourdomain.org/workadventure-maps
+image_website: registry.yourdomain.org/workadventure-website
+
+tls:
+    enabled: true
+    secretName: star-workadventure-yourdomain.org-ingress-secret
+
+dns:
+    maps: maps.workadventure.yourdomain.org
+    play: play.workadventure.yourdomain.org
+    api: api.workadventure.yourdomain.org
+    website: workadventure.yourdomain.org
+    wildcard: "*.workadventure.yourdomain.org"
+
+env:                                                                                                                                                                                                                                                                                                        
+   secrets:
+       secret_key: secret_1
+       secret_jitsi_key: secret_2
+       admin_api_token: secret_3
+
