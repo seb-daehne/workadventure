@@ -595,7 +595,9 @@ export class GameScene extends ResizableScene implements CenterListener {
             if (newValue === undefined) {
                 layoutManager.removeActionButton('openWebsite', this.userInputManager);
                 coWebsiteManager.closeCoWebsite();
+                this.connection.setSilent(false);
             }else{
+                this.connection.setSilent(true);
                 const openWebsiteFunction = () => {
                     coWebsiteManager.loadCoWebsite(newValue as string);
                     layoutManager.removeActionButton('openWebsite', this.userInputManager);
