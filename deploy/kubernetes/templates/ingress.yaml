@@ -1,10 +1,12 @@
+{{ if (default .Values.ingress.enabled true)}}
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: {{ .Chart.Name }}
-  annotations:
-    kubernetes.io/ingress.class: nginx
-    cert-manager.io/cluster-issuer: letsencrypt
+  annotations: 
+    {{- if .Values.ingress.annotations }}
+    {{- include "map.render" (dict "value" .Values.ingress.annotations "context" $) | nindent 4 }}
+    {{- end }}
 spec:
   {{ if (default .Values.tls.enabled true)}}
   tls:
@@ -38,5 +40,5 @@ spec:
       - backend:
           serviceName: {{ .Chart.Name }}-website
           servicePort: 80
-
+{{ end }}
 

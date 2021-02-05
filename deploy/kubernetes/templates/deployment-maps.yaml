@@ -3,7 +3,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Chart.Name }}-maps
-  namespace: default
 spec:
   selector:
     matchLabels:
@@ -18,6 +17,12 @@ spec:
       - name: workadventure
         image:  {{ .Values.image_maps }}
         imagePullPolicy: IfNotPresent
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+          limits:
+            memory: 1000Mi
         env:
         - name: DEBUG_MODE
           value: {{ .Values.debug_mode | quote }}

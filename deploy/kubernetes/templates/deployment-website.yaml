@@ -3,7 +3,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Chart.Name }}-website
-  namespace: default
 spec:
   selector:
     matchLabels:
@@ -18,3 +17,9 @@ spec:
       - name: workadventure
         image: {{ .Values.image_website }}
         imagePullPolicy: IfNotPresent
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+          limits:
+            memory: 1000Mi

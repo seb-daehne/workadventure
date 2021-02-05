@@ -3,7 +3,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Chart.Name }}-front
-  namespace: default
 spec:
   selector:
     matchLabels:
@@ -21,6 +20,12 @@ spec:
         - name: web 
           containerPort: 80
           protocol: TCP
+        resources:
+          requests:
+            cpu: 2 
+            memory: 1000Mi
+          limits:
+            memory: 4000Mi
         env:
         - name: NODE_ENV
           value: production
