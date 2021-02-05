@@ -22,6 +22,12 @@ tls:
     enabled: true
     secretName: star-workadventure-yourdomain.org-ingress-secret
 
+ingress:
+    enabled: true
+    annotations:
+      kubernetes.io/ingress.class: nginx
+
+
 dns:
     maps: maps.workadventure.yourdomain.org
     play: play.workadventure.yourdomain.org
